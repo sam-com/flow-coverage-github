@@ -9807,14 +9807,15 @@ async function run() {
   }
 
   const modifiedFiles = filenamesInPR
-    .filter(({ status }) => status === "modified" || status === "added")
+    .filter(({ status }) => status === "modified")
     .map(({ filename }) => filename);
+  const addedFiles = filenamesInPR.filter(({ status }) => status === "added");
   const packageManager = core.getInput("package-manager");
   const path = core.getInput("path");
   const prCoverageData = await getCoverageData(
     "head",
     path,
-    modifiedFiles,
+    [...modifiedFiles, ...addedFiles],
     packageManager
   );
   const baseCoverageData = await getCoverageData(
