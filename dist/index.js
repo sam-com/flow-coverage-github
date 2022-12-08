@@ -9757,12 +9757,13 @@ function getMarkdownTableAndThresholdPass(
   prCoverageData,
   threshold
 ) {
+  console.log(prCoverageData);
   const floatThreshold = parseFloat(threshold);
   let passesThreshold = true;
   let table = "| File | Delta | Total |\n| --- | --- | --- |";
   Object.keys(coverageDifference).forEach((filename) => {
     if (isNaN(coverageDifference[filename])) {
-      table += `\n| ${filename} | ${coverageDifference[filename]} | ${prCoverageData[filename]}`;
+      table += `\n| ${filename} | ${coverageDifference[filename]} | ${prCoverageData[filename]}%`;
     } else {
       const roundedDifference =
         Math.round(
