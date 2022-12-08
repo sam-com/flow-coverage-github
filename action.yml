@@ -18,7 +18,7 @@ inputs:
   threshold:
     description: "The number of percentage points *down* where this job will fail - not specifying this input will cause the job to always pass if run successfully"
 runs:
-  using: "node12"
+  using: "node16"
   main: "dist/index.js"
 branding:
   icon: "bar-chart-2"

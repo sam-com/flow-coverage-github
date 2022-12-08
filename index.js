@@ -84,7 +84,7 @@ function getMarkdownTableAndThresholdPass(
       if (differenceString.charAt(0) !== "-") {
         differenceString = "+" + differenceString;
       }
-      table += `\n| ${filename} | ${differenceString}%`;
+      table += `\n| ${filename} | ${differenceString}% | ${prCoverageData[filename]}%`;
     }
   });
 

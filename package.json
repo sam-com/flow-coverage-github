@@ -1,18 +1,18 @@
 {
   "name": "flow-coverage-diff",
-  "version": "1.0.0",
-  "description": "Compares your PR flow coverage to master.",
+  "version": "0.0.3",
+  "description": "Compares your PR flow coverage to the destination branch.",
   "main": "dist/index.js",
   "scripts": {
     "build": "ncc build index.js -o dist --source-map --license licenses.txt"
   },
-  "author": "jackieo5023",
+  "author": "sam-com",
   "license": "MIT",
   "dependencies": {
-    "@actions/core": "^1.2.6",
-    "@actions/github": "^4.0.0"
+    "@actions/core": "^1.10.0",
+    "@actions/github": "^5.1.1"
   },
   "devDependencies": {
-    "@vercel/ncc": "^0.25.1"
+    "@vercel/ncc": "^0.36.0"
   }
 }
