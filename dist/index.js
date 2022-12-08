@@ -9743,7 +9743,7 @@ async function getCoverageData(directory, path, filenames, packageManager) {
   );
 
   const coverageData = {};
-  outputs.forEach(async ({ stdout, stderr }, index) => {
+  outputs.forEach(async ({ stdout }, index) => {
     const begin = stdout.indexOf(": ") + 2;
     const end = stdout.indexOf("%");
     coverageData[filenames[index]] = stdout.substring(begin, end);
@@ -9757,7 +9757,6 @@ function getMarkdownTableAndThresholdPass(
   prCoverageData,
   threshold
 ) {
-  console.log(prCoverageData);
   const floatThreshold = parseFloat(threshold);
   let passesThreshold = true;
   let table = "| File | Delta | Total |\n| --- | --- | --- |";
@@ -9808,7 +9807,7 @@ async function run() {
   }
 
   const modifiedFiles = filenamesInPR
-    .filter(({ filename, status }) => status === "modified")
+    .filter(({ status }) => status === "modified" || status === "added")
     .map(({ filename }) => filename);
   const packageManager = core.getInput("package-manager");
   const path = core.getInput("path");
