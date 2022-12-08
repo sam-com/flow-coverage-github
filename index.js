@@ -43,7 +43,7 @@ async function getCoverageData(directory, path, filenames, packageManager) {
         clippedFilename = filename.replace(regex, "");
       }
       return exec(
-        `cd ${extendedDirectory} && ${packageManager} flow coverage ${clippedFilename} --quiet`
+        `cd ${extendedDirectory} && ${packageManager} flow coverage ${clippedFilename}`
       );
     })
   );
@@ -58,13 +58,17 @@ async function getCoverageData(directory, path, filenames, packageManager) {
   return coverageData;
 }
 
-function getMarkdownTableAndThresholdPass(coverageDifference, threshold) {
+function getMarkdownTableAndThresholdPass(
+  coverageDifference,
+  prCoverageData,
+  threshold
+) {
   const floatThreshold = parseFloat(threshold);
   let passesThreshold = true;
-  let table = "| File | Difference |\n| --- | --- |";
+  let table = "| File | Delta | Total |\n| --- | --- | --- |";
   Object.keys(coverageDifference).forEach((filename) => {
     if (isNaN(coverageDifference[filename])) {
-      table += `\n| ${filename} | ${coverageDifference[filename]}`;
+      table += `\n| ${filename} | ${coverageDifference[filename]} | ${prCoverageData[filename]}`;
     } else {
       const roundedDifference =
         Math.round(
@@ -141,6 +145,7 @@ async function run() {
   const threshold = core.getInput("threshold");
   const { table, passesThreshold } = getMarkdownTableAndThresholdPass(
     coverageDifference,
+    prCoverageData,
     threshold
   );
 
