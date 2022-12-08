@@ -9809,7 +9809,9 @@ async function run() {
   const modifiedFiles = filenamesInPR
     .filter(({ status }) => status === "modified")
     .map(({ filename }) => filename);
-  const addedFiles = filenamesInPR.filter(({ status }) => status === "added");
+  const addedFiles = filenamesInPR
+    .filter(({ status }) => status === "added")
+    .map(({ filename }) => filename);
   const packageManager = core.getInput("package-manager");
   const path = core.getInput("path");
   const prCoverageData = await getCoverageData(
