@@ -52,7 +52,7 @@ async function getCoverageData(directory, path, filenames, packageManager) {
   outputs.forEach(async ({ stdout }, index) => {
     const begin = stdout.indexOf(": ") + 2;
     const end = stdout.indexOf("%");
-    coverageData[filenames[index]] = Math.round(+stdout.substring(begin, end));
+    coverageData[filenames[index]] = stdout.substring(begin, end);
   });
 
   return coverageData;
