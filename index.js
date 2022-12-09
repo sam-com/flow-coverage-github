@@ -70,10 +70,10 @@ function getMarkdownTableAndThresholdPass(
     if (isNaN(coverageDifference[filename])) {
       table += `\n| ${filename} | ${coverageDifference[filename]} | ${prCoverageData[filename]}%`;
     } else {
-      const roundedDifference =
-        Math.round(
-          (parseFloat(coverageDifference[filename]) + Number.EPSILON) * 100
-        ) / 100;
+      const roundedDifference = Math.round(
+        parseFloat(coverageDifference[filename]) + Number.EPSILON
+      );
+      const roundedTotal = Math.round(parseFloat(prCoverageData[filename]));
       passesThreshold =
         passesThreshold &&
         !isNaN(floatThreshold) &&
@@ -84,7 +84,7 @@ function getMarkdownTableAndThresholdPass(
       if (differenceString.charAt(0) !== "-") {
         differenceString = "+" + differenceString;
       }
-      table += `\n| ${filename} | ${differenceString}% | ${prCoverageData[filename]}%`;
+      table += `\n| ${filename} | ${differenceString}% | ${roundedTotal}%`;
     }
   });
 
